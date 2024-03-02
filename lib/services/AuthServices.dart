@@ -27,6 +27,7 @@ class AuthService {
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
+        print("phone number verification completed");
         // This callback would get called when verification is done automatically
       },
       verificationFailed: (FirebaseAuthException e) {
