@@ -1,8 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallet_wise/screens/account_setup.dart';
 import 'package:wallet_wise/screens/signup_screen.dart';
 import '../constants/constants.dart';
@@ -74,7 +75,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                     OtpTextField(
                       numberOfFields: 6,
-                      borderColor: Color(0xFF512DA8),
+                      borderColor: const Color(0xFF512DA8),
                       showFieldAsBox: true,
                       onCodeChanged: (String code) {
                         verifyCode = code;
@@ -102,8 +103,6 @@ class _OtpScreenState extends State<OtpScreen> {
                         height: 40,
                         width: 200,
                         onPressed: () async {
-                          final FirebaseAuth auth = FirebaseAuth.instance;
-
                           // PhoneAuthCredential credential =
                           //     PhoneAuthProvider.credential(
                           //   verificationId: verificationId2,
