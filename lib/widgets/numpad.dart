@@ -9,14 +9,14 @@ class NumPad extends StatelessWidget {
   final Function onSubmit;
 
   const NumPad({
-    Key? key,
+    super.key,
     this.buttonSize = 101,
     this.buttonColor = const Color(0xFFE9AB17),
     this.iconColor = const Color(0xFFFCFCFC),
     required this.delete,
     required this.onSubmit,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,12 @@ class NumPad extends StatelessWidget {
                 color: buttonColor,
                 controller: controller,
               ),
-
               NumberButton(
                 number: 2,
                 size: buttonSize,
                 color: buttonColor,
                 controller: controller,
               ),
-
               NumberButton(
                 number: 3,
                 size: buttonSize,
@@ -49,7 +47,9 @@ class NumPad extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16,),
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -59,14 +59,12 @@ class NumPad extends StatelessWidget {
                 color: buttonColor,
                 controller: controller,
               ),
-
               NumberButton(
                 number: 5,
                 size: buttonSize,
                 color: buttonColor,
                 controller: controller,
               ),
-
               NumberButton(
                 number: 6,
                 size: buttonSize,
@@ -75,7 +73,9 @@ class NumPad extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16,),
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -85,14 +85,12 @@ class NumPad extends StatelessWidget {
                 color: buttonColor,
                 controller: controller,
               ),
-
               NumberButton(
                 number: 8,
                 size: buttonSize,
                 color: buttonColor,
                 controller: controller,
               ),
-
               NumberButton(
                 number: 9,
                 size: buttonSize,
@@ -101,13 +99,15 @@ class NumPad extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16,),
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
                 onPressed: () => delete(),
-                icon: Icon(
+                icon: const Icon(
                   Icons.backspace,
                   color: Color(0xFFE9AB17),
                 ),
@@ -121,7 +121,7 @@ class NumPad extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () => onSubmit(),
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_forward_rounded,
                   color: Color(0xFFE9AB17),
                 ),
@@ -144,12 +144,12 @@ class NumberButton extends StatelessWidget {
   final TextEditingController controller;
 
   const NumberButton({
-    Key? key,
+    super.key,
     required this.number,
     required this.size,
     required this.color,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +171,9 @@ class NumberButton extends StatelessWidget {
             child: Text(
               number.toString(),
               style: const TextStyle(
-                  fontWeight: FontWeight.w500, color: Colors.white, fontSize: 48),
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                  fontSize: 48),
             ),
           ),
         ),

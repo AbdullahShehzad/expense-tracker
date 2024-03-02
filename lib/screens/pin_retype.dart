@@ -1,21 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wallet_wise/screens/wallet_setup.dart';
 import '../widgets/numpad.dart';
 
-class PinRetype extends StatefulWidget {
+class pin_retype extends StatefulWidget {
   final String expectedPin;
 
-  const PinRetype({super.key, required this.expectedPin});
+  const pin_retype({super.key, required this.expectedPin});
 
   @override
-  State<PinRetype> createState() => _PinRetypeState();
+  State<pin_retype> createState() => _pin_retypeState();
 }
 
-class _PinRetypeState extends State<PinRetype> {
+class _pin_retypeState extends State<pin_retype> {
   final TextEditingController _myController = TextEditingController();
-  bool _isFieldEmpty = true;
-
   @override
   void initState() {
     super.initState();
@@ -38,11 +34,7 @@ class _PinRetypeState extends State<PinRetype> {
   }
 
   void _updateIconState() {
-    var txt = _myController.text;
-    bool isNowEmpty = txt.isEmpty;
-
     setState(() {
-      _isFieldEmpty = isNowEmpty;
       // State is updated here, causing a rebuild with the correct icons and colors
     });
   }
@@ -111,22 +103,19 @@ class _PinRetypeState extends State<PinRetype> {
               onSubmit: () {
                 bool check = isSame();
                 if (check == true) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WalletSetup(),
-                    ),
-                  );
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) {
+                  //   return pin_retype(expectedPin: _myController.text);
+                  // }));
                 } else {
                   showDialog(
-                    context: context,
-                    builder: (_) => const AlertDialog(
-                      content: Text(
-                        "Your pin does not match",
-                        style: TextStyle(fontSize: 30),
-                      ),
-                    ),
-                  );
+                      context: context,
+                      builder: (_) => const AlertDialog(
+                            content: Text(
+                              "Your pin does not match",
+                              style: TextStyle(fontSize: 30),
+                            ),
+                          ));
                 }
               },
             ),

@@ -1,18 +1,39 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../constants/constants.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Sign up with email and password
-  // Sign up with email and password
-  Future<User?> signUp(String email, String password, String contact) async {
+  Future<User?> signUp({
+    required String email,
+    required String password,
+    required String username,
+    required String city,
+    required String country,
+    required String contact,
+  }) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
+
       User? user = result.user;
 
       if (user != null) {
-        // Optionally, link the phone number with the email/password account
+        await _firestore.collection('users').doc(user.uid).set({
+          'username': username,
+          'email': email,
+          'password': password,
+          'city': city,
+          'country': country,
+          'contact': contact,
+        });
+
         await _verifyPhoneNumber(contact);
       }
 
@@ -34,13 +55,7 @@ class AuthService {
         print("Verification failed: ${e.message}");
       },
       codeSent: (String verificationId, int? resendToken) async {
-        print("code has been sent check please");
-        // This callback gets called after the OTP is sent.
-        // You can prompt the user to enter the OTP and then create a PhoneAuthCredential
-        // For example: PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
-
-        // Sign in or link with the credential
-        // await _auth.signInWithCredential(credential);
+        verificationId2 = verificationId;
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         // Auto-resolution timed out...
@@ -51,7 +66,9 @@ class AuthService {
 
   Future<void> verifyOtp(String verificationId, String smsCode) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId, smsCode: smsCode);
+      verificationId: verificationId,
+      smsCode: smsCode,
+    );
 
     try {
       // If you want to link the phone number to the email/password user

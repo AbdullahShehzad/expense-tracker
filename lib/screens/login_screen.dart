@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallet_wise/constants/constants.dart';
@@ -24,14 +26,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   _login() async {
     if (_formKey.currentState!.validate()) {
-      AuthService _authService = AuthService();
-      User? user = await _authService.signIn(
+      AuthService authService = AuthService();
+      User? user = await authService.signIn(
           _emailController.text, _passwordController.text);
       if (user != null) {
-        print("Login successful");
+        log("Login successful");
         // Navigate to the next screen or home page
       } else {
-        print("Login failed");
+        log("Login failed");
         // Show error message
       }
     }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../constants/constants.dart';
-
 class CustomButton extends StatefulWidget {
   final Function()? onPressed;
   final String text;

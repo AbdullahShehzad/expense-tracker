@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
-import 'package:wallet_wise/screens/signup_screen.dart';
+// ignore_for_file: use_build_context_synchronously
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:wallet_wise/screens/account_setup.dart';
+import 'package:wallet_wise/screens/signup_screen.dart';
 import '../constants/constants.dart';
 import '../widgets/custom_button.dart';
-import '../widgets/custom_field.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -17,6 +18,7 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String verifyCode = '';
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +73,24 @@ class _OtpScreenState extends State<OtpScreen> {
                     const SizedBox(
                       height: 71,
                     ),
-                    OTPTextField(
-                      length: 5,
-                      width: MediaQuery.of(context).size.width,
-                      fieldWidth: 58,
-                      style: const TextStyle(
-                        fontSize: 17,
-                      ),
-                      textFieldAlignment: MainAxisAlignment.spaceAround,
-                      fieldStyle: FieldStyle.box,
-                      onCompleted: (pin) {
-                        print("Completed: " + pin);
+                    OtpTextField(
+                      numberOfFields: 6,
+                      borderColor: const Color(0xFF512DA8),
+                      showFieldAsBox: true,
+                      onCodeChanged: (String code) {
+                        verifyCode = code;
+                      },
+                      onSubmit: (String verificationCode) async {
+                        final FirebaseAuth auth = FirebaseAuth.instance;
+
+                        PhoneAuthCredential credential =
+                            PhoneAuthProvider.credential(
+                          verificationId: verificationId2,
+                          smsCode: verificationCode,
+                        );
+
+                        // Sign in or link with the credential
+                        await auth.signInWithCredential(credential);
                       },
                     ),
                     const SizedBox(
@@ -93,7 +102,31 @@ class _OtpScreenState extends State<OtpScreen> {
                         text: 'Login',
                         height: 40,
                         width: 200,
-                        onPressed: () {},
+                        onPressed: () async {
+                          // PhoneAuthCredential credential =
+                          //     PhoneAuthProvider.credential(
+                          //   verificationId: verificationId2,
+                          //   smsCode: verifyCode,
+                          // );
+                          //
+                          // // Sign in or link with the credential
+                          // await auth.signInWithCredential(credential);
+
+                          await Future.delayed(
+                            const Duration(
+                              seconds: 2,
+                            ),
+                          );
+
+                          if (mounted) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AccountSetup(),
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ),
                     const SizedBox(
