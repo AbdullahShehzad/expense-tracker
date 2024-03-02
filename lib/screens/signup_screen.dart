@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallet_wise/screens/login_screen.dart';
+import 'package:wallet_wise/screens/otp_screen.dart';
 
 import '../constants/constants.dart';
 import '../services/AuthServices.dart';
