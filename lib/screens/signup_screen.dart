@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,28 +26,29 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   _signup() async {
     if (_formKey.currentState!.validate()) {
-      AuthService _authService = AuthService();
+      AuthService authService = AuthService();
 
-      dynamic result = await _authService.signUp(
-          email: _emailController.text,
-          password: _passwordController.text,
-          username: _nameController.text,
-          city: _cityController.text,
-          country: _countryController.text,
-          contact: _contactController.text);
-      if (result is User) {
-        print("Signup successful. Verification email has been sent.");
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Please check your email to verify your account."),
+      User? result = await authService.signUp(
+        email: _emailController.text,
+        password: _passwordController.text,
+        username: _nameController.text,
+        city: _cityController.text,
+        country: _countryController.text,
+        contact: _contactController.text,
+      );
+
+      if (result != null && mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const OtpScreen(),
           ),
         );
-        // Optionally, navigate the user to a different screen here
       } else {
-        print("Signup failed");
-        // Show error message
+        log("Signup failed.");
       }
     }
   }
