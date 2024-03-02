@@ -4,6 +4,10 @@ import 'package:wallet_wise/constants/constants.dart';
 import 'package:wallet_wise/widgets/custom_button.dart';
 import 'package:wallet_wise/widgets/custom_field.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../services/AuthServices.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -16,8 +20,19 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  _login() {
-    if (_formKey.currentState!.validate()) {}
+  _login() async {
+    if (_formKey.currentState!.validate()) {
+      AuthService _authService = AuthService();
+      User? user = await _authService.signIn(
+          _emailController.text, _passwordController.text);
+      if (user != null) {
+        print("Login successful");
+        // Navigate to the next screen or home page
+      } else {
+        print("Login failed");
+        // Show error message
+      }
+    }
   }
 
   @override
