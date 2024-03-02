@@ -29,22 +29,26 @@ class _CustomFieldState extends State<CustomField> {
     }
   }
 
-  String? _emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
-    } else if (!value.contains('@')) {
-      return 'Enter a valid email address';
+  String? validator(String? value) {
+    switch (widget.title) {
+      case 'Email':
+        return value != null && !value.contains('@')
+            ? 'Enter a valid email'
+            : null;
+      case 'Password':
+        return value != null && value.length < 8
+            ? 'Password must be at least 8 characters'
+            : null;
+      case 'Name':
+      case 'Contact':
+      case 'Country':
+      case 'City':
+        return (value == null || value.isEmpty)
+            ? 'This field cannot be empty'
+            : null;
+      default:
+        return null;
     }
-    return null;
-  }
-
-  String? _passwordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password cannot be empty';
-    } else if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
-    return null;
   }
 
   @override
@@ -105,11 +109,7 @@ class _CustomFieldState extends State<CustomField> {
             ),
             hintText: widget.hintText,
           ),
-          validator: widget.title == 'Email'
-              ? _emailValidator
-              : widget.title == 'Password'
-                  ? _passwordValidator
-                  : null,
+          validator: validator,
         ),
       ],
     );

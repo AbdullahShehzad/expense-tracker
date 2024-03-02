@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wallet_wise/constants/constants.dart';
-import 'package:wallet_wise/screens/signup_screen.dart';
-import 'package:wallet_wise/widgets/custom_button.dart';
-import 'package:wallet_wise/widgets/custom_field.dart';
+import 'package:wallet_wise/screens/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+import '../constants/constants.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_field.dart';
+
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _contactController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  _login() {
+  _signup() {
     if (_formKey.currentState!.validate()) {}
   }
 
@@ -50,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
-                      height: 180,
+                      height: 123,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -74,14 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     const SizedBox(
-                      height: 73,
+                      height: 53,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 2,
                       ),
                       child: Text(
-                        'Login',
+                        'Get Started!',
                         style: GoogleFonts.notoSansJavanese(
                           fontWeight: FontWeight.bold,
                           fontSize: 26,
@@ -90,12 +95,44 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 46,
+                      height: 24,
+                    ),
+                    CustomField(
+                      textEditingController: _nameController,
+                      title: 'Name',
+                      hintText: 'Enter Name',
+                    ),
+                    const SizedBox(
+                      height: 18,
                     ),
                     CustomField(
                       textEditingController: _emailController,
                       title: 'Email',
                       hintText: 'Enter Email',
+                    ),
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    CustomField(
+                      textEditingController: _contactController,
+                      title: 'Contact',
+                      hintText: 'Enter Contact',
+                    ),
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    CustomField(
+                      textEditingController: _countryController,
+                      title: 'Country',
+                      hintText: 'Select Country',
+                    ),
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    CustomField(
+                      textEditingController: _cityController,
+                      title: 'City',
+                      hintText: 'Select City',
                     ),
                     const SizedBox(
                       height: 18,
@@ -108,27 +145,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 9,
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot Your Password?',
-                        style: GoogleFonts.notoSansJavanese(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
                     const SizedBox(
-                      height: 55,
+                      height: 36,
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: CustomButton(
-                        text: 'Login',
+                        text: 'Sign Up',
                         height: 40,
                         width: 200,
-                        onPressed: _login,
+                        onPressed: _signup,
                       ),
                     ),
                     const SizedBox(
@@ -138,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Don\'t have an account? ',
+                          'Already have an account? ',
                           style: GoogleFonts.notoSans(
                             fontWeight: FontWeight.w400,
                             fontSize: 14.2,
@@ -151,12 +177,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const SignupScreen(),
+                                builder: (context) => const LoginScreen(),
                               ),
                             );
                           },
                           child: Text(
-                            ' Sign up',
+                            ' Log in',
                             style: GoogleFonts.notoSans(
                               fontWeight: FontWeight.w400,
                               fontSize: 14.2,
