@@ -11,6 +11,7 @@ import 'package:wallet_wise/widgets/custom_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../services/AuthServices.dart';
+import 'check_login.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,11 +31,17 @@ class _LoginScreenState extends State<LoginScreen> {
       User? user = await authService.signIn(
           _emailController.text, _passwordController.text);
       if (user != null) {
-        log("Login successful");
-        // Navigate to the next screen or home page
+        if (mounted) {
+          Navigator.popUntil(context, (route) => false);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CheckLogin(),
+            ),
+          );
+        }
       } else {
         log("Login failed");
-        // Show error message
       }
     }
   }
