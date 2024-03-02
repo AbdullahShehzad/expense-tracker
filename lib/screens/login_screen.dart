@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallet_wise/constants/constants.dart';
+import 'package:wallet_wise/screens/forgot_password_screen.dart';
 import 'package:wallet_wise/screens/signup_screen.dart';
 import 'package:wallet_wise/widgets/custom_button.dart';
 import 'package:wallet_wise/widgets/custom_field.dart';
@@ -125,12 +126,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot Your Password?',
-                        style: GoogleFonts.notoSansJavanese(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          color: Colors.white,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const ForgotPasswordScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Forgot Your Password?',
+                          style: GoogleFonts.notoSansJavanese(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

@@ -5,11 +5,17 @@ class CustomField extends StatefulWidget {
   final TextEditingController textEditingController;
   final String title;
   final String hintText;
+  final Color backgroundColor;
+  final Color titleColor;
+  final Color suffixColor;
 
   const CustomField({
     required this.textEditingController,
     required this.title,
     required this.hintText,
+    this.titleColor = const Color(0xFFFFFFFF),
+    this.backgroundColor = const Color(0xFFFFFFFF),
+    this.suffixColor = const Color(0xFF91919F),
     super.key,
   });
 
@@ -35,7 +41,7 @@ class _CustomFieldState extends State<CustomField> {
         return value != null && !value.contains('@')
             ? 'Enter a valid email'
             : null;
-      case 'Password':
+      case 'Password' || 'New Password' || 'Confirm Password':
         return value != null && value.length < 8
             ? 'Password must be at least 8 characters'
             : null;
@@ -65,7 +71,7 @@ class _CustomFieldState extends State<CustomField> {
             style: GoogleFonts.notoSans(
               fontWeight: FontWeight.w500,
               fontSize: 16,
-              color: Colors.white,
+              color: widget.titleColor,
               letterSpacing: -0.5,
             ),
           ),
@@ -83,7 +89,9 @@ class _CustomFieldState extends State<CustomField> {
           ),
           obscureText: obscureText,
           decoration: InputDecoration(
-            suffixIcon: widget.title == 'Password'
+            suffixIcon: widget.title == 'Password' ||
+                    widget.title == 'New Password' ||
+                    widget.title == 'Confirm Password'
                 ? GestureDetector(
                     onTap: () {
                       setState(() {
@@ -92,13 +100,13 @@ class _CustomFieldState extends State<CustomField> {
                     },
                     child: Icon(
                       obscureText
-                          ? Icons.visibility_outlined
-                          : Icons.visibility,
-                      color: const Color(0xFF91919F),
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      color: widget.suffixColor,
                     ),
                   )
                 : null,
-            fillColor: Colors.white,
+            fillColor: widget.backgroundColor,
             filled: true,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
