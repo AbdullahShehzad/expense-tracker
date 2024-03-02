@@ -15,7 +15,7 @@ class _WalletSetupState extends State<WalletSetup> {
     // Determine the height of the screen
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xFF392800), // Set the background color to black
+      backgroundColor: Color(0xFF392800),
       body: Column(
         children: [
           Container(
@@ -30,7 +30,7 @@ class _WalletSetupState extends State<WalletSetup> {
                   color: Colors.white,
                   iconSize: 28, // Size of the icon
                   onPressed: () {
-                    Navigator.pop;
+                    Navigator.pop(context);
                   },
                 ),
                 SizedBox(
