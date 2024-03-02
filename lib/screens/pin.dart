@@ -101,7 +101,7 @@ class _pinState extends State<pin> {
                 },
                 onSubmit: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return pin_retype(expectedPin: _myController.text);
+                    return PinRetype(expectedPin: _myController.text);
                   }));
                 },
               ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_wise/constants/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:wallet_wise/screens/pin.dart';
 import 'package:wallet_wise/screens/signup_screen.dart';
+import 'package:wallet_wise/screens/wallet_setup.dart';
 import 'package:wallet_wise/services/local_notification_service.dart';
 
 void main() async {
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const SignupScreen(),
+      home: const WalletSetup(),
     );
   }
 }
