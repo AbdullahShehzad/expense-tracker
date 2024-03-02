@@ -29,8 +29,8 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_formKey.currentState!.validate()) {
       AuthService _authService = AuthService();
 
-      dynamic result = await _authService.signUp(
-          _emailController.text, _passwordController.text);
+      dynamic result = await _authService.signUp(_emailController.text,
+          _passwordController.text, _contactController.text);
       if (result is User) {
         print("Signup successful. Verification email has been sent.");
         ScaffoldMessenger.of(context).showSnackBar(
