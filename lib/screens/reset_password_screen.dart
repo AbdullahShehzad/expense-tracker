@@ -1,14 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/constants.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_field.dart';
-import 'forgot_success_screen.dart';
 import 'login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+  final String email2;
+  const ResetPasswordScreen({required this.email2, super.key});
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -20,12 +22,46 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  Future<void> resetPassword(String email) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+      print("Password reset email sent.");
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      var uID = FirebaseAuth.instance.currentUser?.uid;
+      if (uID != null) {
+        DocumentReference userDoc = firestore.collection('users').doc(uID);
+
+        try {
+          await userDoc.update({
+            'password': _newPasswordController
+                .text, // Adds the 'pin' field to the user document
+          });
+          print("User password changed successfully.");
+        } catch (e) {
+          if (e is FirebaseException && e.code == 'not-found') {
+            print("User document does not exist.");
+            // Optionally, create the document if it doesn't exist
+            // await userDoc.set({'pin': pin});
+          } else {
+            print("Error adding/updating user PIN: $e");
+          }
+        }
+      } else {
+        return;
+      }
+    } catch (error) {
+      print("Error sending password reset email: $error");
+      // Handle errors, e.g., by showing an alert to the user
+    }
+  }
+
   _forgotPassword() {
     if (_formKey.currentState!.validate()) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const ForgotSuccessScreen(),
+          builder: (context) => const LoginScreen(),
         ),
       );
     }

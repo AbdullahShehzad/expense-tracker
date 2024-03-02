@@ -7,7 +7,9 @@ import '../widgets/custom_button.dart';
 import 'login_screen.dart';
 
 class ForgotSuccessScreen extends StatefulWidget {
-  const ForgotSuccessScreen({super.key});
+  final String email;
+
+  const ForgotSuccessScreen({required this.email, super.key});
 
   @override
   State<ForgotSuccessScreen> createState() => _ForgotSuccessScreenState();
@@ -20,7 +22,9 @@ class _ForgotSuccessScreenState extends State<ForgotSuccessScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ResetPasswordScreen(),
+        builder: (context) => ResetPasswordScreen(
+          email2: widget.email,
+        ),
       ),
     );
   }

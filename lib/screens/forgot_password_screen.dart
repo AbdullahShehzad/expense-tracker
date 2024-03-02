@@ -23,7 +23,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const ForgotSuccessScreen(),
+          builder: (context) => ForgotSuccessScreen(
+            email: _emailController.text,
+          ),
         ),
       );
     }
