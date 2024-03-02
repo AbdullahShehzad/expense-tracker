@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_wise/constants/constants.dart';
+import 'package:wallet_wise/screens/account_setup.dart';
 import 'package:wallet_wise/screens/login_screen.dart';
+import 'package:wallet_wise/screens/account_setup.dart';
+import 'package:wallet_wise/screens/pin.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const pin(),
     );
   }
 }
