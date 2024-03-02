@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -60,7 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
           elevation: 1,
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
             ),
           ),
@@ -133,8 +132,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           Container(
                             width: MediaQuery.of(context).size.width * 0.5,
                             decoration: BoxDecoration(
-                              color: Color(0xFFE9AB17).withOpacity(.57),
-                              borderRadius: BorderRadius.only(
+                              color: const Color(0xFFE9AB17).withOpacity(.57),
+                              borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(12),
                                 bottomLeft: Radius.circular(12),
                                 bottomRight: Radius.circular(12),
@@ -288,7 +287,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: IconButton(
                             onPressed: sendMessage,
                             style: IconButton.styleFrom(
-                              backgroundColor: Color(0xFFE9AB17),
+                              backgroundColor: const Color(0xFFE9AB17),
                             ),
                             icon: SvgPicture.asset(
                               'assets/send.svg',

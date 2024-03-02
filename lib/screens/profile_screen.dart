@@ -1,5 +1,12 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wallet_wise/screens/profile_settings.dart';
 
 import 'chat_screen.dart';
@@ -13,12 +20,37 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  ValueNotifier<String> photoURL = ValueNotifier('');
+  final databaseRef = FirebaseFirestore.instance.collection('users');
+
+  void fetchUserData() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      try {
+        DocumentSnapshot userData =
+            await _firestore.collection('users').doc(user.uid).get();
+        setState(() {
+          displayName = userData['username'];
+        });
+      } catch (e) {
+        print("Error fetching user data: $e");
+      }
+    }
+  }
+
+  String? displayName;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xFF392800),
+      backgroundColor: const Color(0xFF392800),
       body: Column(
         children: [
           Expanded(
@@ -40,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Navigator.pop(context);
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   const Text(
@@ -51,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   IconButton(
@@ -85,16 +117,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(
                       height: 80,
                     ),
-                    const Text(
-                      "Muhammad Saad",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFF222222),
-                          fontWeight: FontWeight.bold),
+                    GestureDetector(
+                      onTap: _updateImage,
+                      child: ValueListenableBuilder(
+                        valueListenable: photoURL,
+                        builder: (context, value, widget) {
+                          return Container(
+                            height: 122,
+                            width: 122,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            padding: const EdgeInsets.all(3),
+                            child: Container(
+                              height: 120,
+                              width: 120,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey,
+                              ),
+                              clipBehavior: Clip.antiAlias,
+                              child: value == ''
+                                  ? const Icon(
+                                      Icons.person,
+                                      color: Colors.white,
+                                      size: 50,
+                                    )
+                                  : CachedNetworkImage(
+                                      imageUrl: value,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Text(
+                      displayName ?? '',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFF222222),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     IconButton(
                       style: IconButton.styleFrom(
-                        backgroundColor: Color(0xFF392800),
+                        backgroundColor: const Color(0xFF392800),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
@@ -117,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           IconButton(
                             style: IconButton.styleFrom(
-                              backgroundColor: Color(0xFFE9AB17),
+                              backgroundColor: const Color(0xFFE9AB17),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -142,14 +210,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Divider(
-                      color: Color(0xFF6A5931).withOpacity(.35),
+                      color: const Color(0xFF6A5931).withOpacity(.35),
                     ),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProfileSettings(),
+                            builder: (context) => const ProfileSettings(),
                           ),
                         );
                       },
@@ -160,7 +228,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           IconButton(
                             style: IconButton.styleFrom(
-                              backgroundColor: Color(0xFFE9AB17),
+                              backgroundColor: const Color(0xFFE9AB17),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -185,7 +253,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Divider(
-                      color: Color(0xFF6A5931).withOpacity(.35),
+                      color: const Color(0xFF6A5931).withOpacity(.35),
                     ),
                     OutlinedButton(
                       onPressed: () {
@@ -206,7 +274,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           IconButton(
                             style: IconButton.styleFrom(
-                              backgroundColor: Color(0xFFE9AB17),
+                              backgroundColor: const Color(0xFFE9AB17),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -241,5 +309,233 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  _updateImage() {
+    ImagePicker picker = ImagePicker();
+    late XFile? image;
+
+    if (Platform.isIOS) {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (context) {
+          return CupertinoActionSheet(
+            actions: [
+              CupertinoActionSheetAction(
+                child: const Text(
+                  'Camera',
+                  textScaler: TextScaler.noScaling,
+                ),
+                onPressed: () async {
+                  Navigator.pop(context);
+
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  );
+
+                  image = await picker.pickImage(
+                    source: ImageSource.camera,
+                  );
+
+                  if (image != null) {
+                    File imageFile = File(image!.path);
+                    final path = 'profilePics/${image!.name}';
+
+                    final ref = FirebaseStorage.instance.ref().child(path);
+                    final uploadTask = ref.putFile(imageFile);
+
+                    final snapshot = await uploadTask.whenComplete(() {});
+
+                    final urlDownload = await snapshot.ref.getDownloadURL();
+
+                    final user = FirebaseAuth.instance.currentUser!;
+
+                    user.updatePhotoURL(urlDownload);
+                    photoURL.value = urlDownload;
+
+                    databaseRef.doc(user.uid).update(
+                      {
+                        'photoUrl': urlDownload,
+                      },
+                    );
+                  }
+
+                  Navigator.pop(context);
+                },
+              ),
+              CupertinoActionSheetAction(
+                child: const Text(
+                  'Gallery',
+                  textScaler: TextScaler.noScaling,
+                ),
+                onPressed: () async {
+                  Navigator.pop(context);
+
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  );
+
+                  image = await picker.pickImage(
+                    source: ImageSource.gallery,
+                  );
+
+                  if (image != null) {
+                    File imageFile = File(image!.path);
+                    final path = 'profilePics/${image!.name}';
+
+                    final ref = FirebaseStorage.instance.ref().child(path);
+                    final uploadTask = ref.putFile(imageFile);
+
+                    final snapshot = await uploadTask.whenComplete(() {});
+
+                    final urlDownload = await snapshot.ref.getDownloadURL();
+
+                    final user = FirebaseAuth.instance.currentUser!;
+
+                    user.updatePhotoURL(urlDownload);
+                    photoURL.value = urlDownload;
+
+                    databaseRef.doc(user.uid).update(
+                      {
+                        'photoUrl': urlDownload,
+                      },
+                    );
+                  }
+
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+            cancelButton: CupertinoActionSheetAction(
+              child: const Text(
+                'Cancel',
+                textScaler: TextScaler.noScaling,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          );
+        },
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Wrap(
+            children: [
+              ListTile(
+                title: const Text(
+                  'Camera',
+                  textScaler: TextScaler.noScaling,
+                ),
+                onTap: () async {
+                  Navigator.pop(context);
+
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  );
+
+                  image = await picker.pickImage(
+                    source: ImageSource.camera,
+                  );
+
+                  if (image != null) {
+                    File imageFile = File(image!.path);
+                    final path = 'profilePics/${image!.name}';
+
+                    final ref = FirebaseStorage.instance.ref().child(path);
+                    final uploadTask = ref.putFile(imageFile);
+
+                    final snapshot = await uploadTask.whenComplete(() {});
+
+                    final urlDownload = await snapshot.ref.getDownloadURL();
+
+                    final user = FirebaseAuth.instance.currentUser!;
+
+                    user.updatePhotoURL(urlDownload);
+                    photoURL.value = urlDownload;
+
+                    databaseRef.doc(user.uid).update(
+                      {
+                        'photoUrl': urlDownload,
+                      },
+                    );
+                  }
+
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text(
+                  'Gallery',
+                  textScaler: TextScaler.noScaling,
+                ),
+                onTap: () async {
+                  Navigator.pop(context);
+
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  );
+
+                  image = await picker.pickImage(
+                    source: ImageSource.gallery,
+                  );
+
+                  if (image != null) {
+                    File imageFile = File(image!.path);
+                    final path = 'profilePics/${image!.name}';
+
+                    final ref = FirebaseStorage.instance.ref().child(path);
+                    final uploadTask = ref.putFile(imageFile);
+
+                    final snapshot = await uploadTask.whenComplete(() {});
+
+                    final urlDownload = await snapshot.ref.getDownloadURL();
+
+                    final user = FirebaseAuth.instance.currentUser!;
+
+                    user.updatePhotoURL(urlDownload);
+                    photoURL.value = urlDownload;
+
+                    databaseRef.doc(user.uid).update(
+                      {
+                        'photoUrl': urlDownload,
+                      },
+                    );
+                  }
+
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
