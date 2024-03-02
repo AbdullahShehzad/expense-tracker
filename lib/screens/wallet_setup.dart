@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:wallet_wise/screens/check_login.dart';
 
 class WalletSetup extends StatefulWidget {
   const WalletSetup({super.key});
@@ -25,11 +24,17 @@ class _WalletSetupState extends State<WalletSetup> {
       DocumentReference userDoc = firestore.collection('users').doc(uID);
 
       try {
-        await userDoc.update({
-          'accountNumber': accNo, // Adds the 'pin' field to the user document
-          'cvc': cvc
-        });
-        print("User Account added successfully.");
+        await userDoc.update({'accountNumber': accNo, 'cvc': cvc});
+
+        if (mounted) {
+          Navigator.popUntil(context, (route) => false);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CheckLogin(),
+            ),
+          );
+        }
       } catch (e) {
         if (e is FirebaseException && e.code == 'not-found') {
           print("User document does not exist.");
