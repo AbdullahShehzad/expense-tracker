@@ -414,7 +414,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     );
                   }
 
-                  Navigator.pop(context);
+                  if (mounted) Navigator.pop(context);
                 },
               ),
             ],
