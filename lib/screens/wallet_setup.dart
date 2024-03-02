@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +12,38 @@ class WalletSetup extends StatefulWidget {
 }
 
 class _WalletSetupState extends State<WalletSetup> {
+  final TextEditingController _cardController = TextEditingController();
+  final TextEditingController _cvcController = TextEditingController();
+
+  Future<void> addCardInfo(
+    String accNo,
+    String cvc,
+  ) async {
+    var uID = FirebaseAuth.instance.currentUser?.uid;
+    if (uID != null) {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      DocumentReference userDoc = firestore.collection('users').doc(uID);
+
+      try {
+        await userDoc.update({
+          'accountNumber': accNo, // Adds the 'pin' field to the user document
+          'cvc': cvc
+        });
+        print("User Account added successfully.");
+      } catch (e) {
+        if (e is FirebaseException && e.code == 'not-found') {
+          print("User document does not exist.");
+          // Optionally, create the document if it doesn't exist
+          // await userDoc.set({'pin': pin});
+        } else {
+          print("Error adding user accNo : $e");
+        }
+      }
+    } else {
+      print("kuch to masla hua hai in wallet setup page");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Determine the height of the screen
@@ -134,6 +168,7 @@ class _WalletSetupState extends State<WalletSetup> {
                           Expanded(
                             flex: 2,
                             child: TextField(
+                              controller: _cardController,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -161,6 +196,7 @@ class _WalletSetupState extends State<WalletSetup> {
                           ),
                           Expanded(
                             child: TextField(
+                              controller: _cvcController,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -253,6 +289,7 @@ class _WalletSetupState extends State<WalletSetup> {
                     ElevatedButton(
                       onPressed: () {
                         // Add your onPressed functionality here
+                        addCardInfo(_cardController.text, _cvcController.text);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF392800), // Text color

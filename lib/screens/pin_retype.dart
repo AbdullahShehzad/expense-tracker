@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:wallet_wise/screens/wallet_setup.dart';
 import '../widgets/numpad.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class pin_retype extends StatefulWidget {
   final String expectedPin;
@@ -23,6 +27,31 @@ class _pin_retypeState extends State<pin_retype> {
     _myController.removeListener(_updateIconState);
     _myController.dispose();
     super.dispose();
+  }
+
+  Future<void> addUserPin(String pin) async {
+    var uID = FirebaseAuth.instance.currentUser?.uid;
+    if (uID != null) {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      DocumentReference userDoc = firestore.collection('users').doc(uID);
+
+      try {
+        await userDoc.update({
+          'pin': pin, // Adds the 'pin' field to the user document
+        });
+        print("User PIN added successfully.");
+      } catch (e) {
+        if (e is FirebaseException && e.code == 'not-found') {
+          print("User document does not exist.");
+          // Optionally, create the document if it doesn't exist
+          // await userDoc.set({'pin': pin});
+        } else {
+          print("Error adding/updating user PIN: $e");
+        }
+      }
+    } else {
+      print("kuch to masla hai");
+    }
   }
 
   bool isSame() {
@@ -103,10 +132,10 @@ class _pin_retypeState extends State<pin_retype> {
               onSubmit: () {
                 bool check = isSame();
                 if (check == true) {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) {
-                  //   return pin_retype(expectedPin: _myController.text);
-                  // }));
+                  addUserPin(_myController.text);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return WalletSetup();
+                  }));
                 } else {
                   showDialog(
                       context: context,
