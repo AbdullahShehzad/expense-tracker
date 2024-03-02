@@ -23,13 +23,17 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   _signup() async {
     if (_formKey.currentState!.validate()) {
       AuthService _authService = AuthService();
 
-      dynamic result = await _authService.signUp(_emailController.text,
-          _passwordController.text, _contactController.text);
+      dynamic result = await _authService.signUp(
+          email: _emailController.text,
+          password: _passwordController.text,
+          username: _nameController.text,
+          city: _cityController.text,
+          country: _countryController.text,
+          contact: _contactController.text);
       if (result is User) {
         print("Signup successful. Verification email has been sent.");
         ScaffoldMessenger.of(context).showSnackBar(
