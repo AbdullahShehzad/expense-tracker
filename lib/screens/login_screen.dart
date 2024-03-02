@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallet_wise/constants/constants.dart';
+import 'package:wallet_wise/widgets/custom_button.dart';
+import 'package:wallet_wise/widgets/custom_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,6 +12,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  _login() {
+    if (_formKey.currentState!.validate()) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,88 +41,93 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(
               horizontal: 14,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Wallet',
-                      style: GoogleFonts.inter(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Wallet',
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 35,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        'Wise',
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 35,
+                          color: kYellowColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 73,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 2,
+                    ),
+                    child: Text(
+                      'Login',
+                      style: GoogleFonts.notoSansJavanese(
                         fontWeight: FontWeight.bold,
-                        fontSize: 35,
+                        fontSize: 26,
                         color: Colors.white,
                       ),
                     ),
-                    Text(
-                      'Wise',
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 35,
-                        color: kYellowColor,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 73,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 2,
                   ),
-                  child: Text(
-                    'Login',
-                    style: GoogleFonts.notoSansJavanese(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26,
-                      color: Colors.white,
-                    ),
+                  const SizedBox(
+                    height: 46,
                   ),
-                ),
-                const SizedBox(
-                  height: 46,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 3,
-                  ),
-                  child: Text(
-                    'Email',
-                    style: GoogleFonts.notoSans(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: Colors.white,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 9,
-                ),
-                TextFormField(
-                  style: GoogleFonts.nunitoSans(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15,
-                    color: Colors.black,
-                    letterSpacing: -0.5,
-                  ),
-                  decoration: InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 15,
-                    ),
+                  CustomField(
+                    textEditingController: _emailController,
+                    title: 'Email',
                     hintText: 'Enter Email',
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 18,
+                  ),
+                  CustomField(
+                    textEditingController: _passwordController,
+                    title: 'Password',
+                    hintText: 'Enter your password',
+                  ),
+                  const SizedBox(
+                    height: 9,
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'Forgot Your Password?',
+                      style: GoogleFonts.notoSansJavanese(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 55,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: CustomButton(
+                      text: 'Login',
+                      height: 40,
+                      width: 200,
+                      onPressed: _login,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
