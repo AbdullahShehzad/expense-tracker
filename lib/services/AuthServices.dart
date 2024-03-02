@@ -4,16 +4,31 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Sign up with email and password
+  // Sign up with email and password
   Future<User?> signUp(String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
-      // Additional user information like name, contact, country, and city can be stored in Firestore here
+
+      if (user != null && !user.emailVerified) {
+        await sendVerificationEmail(user);
+      }
+
       return user;
     } catch (error) {
       print(error.toString());
       return null;
+    }
+  }
+
+  // Send verification email
+  Future<void> sendVerificationEmail(User user) async {
+    try {
+      await user.sendEmailVerification();
+      print("Verification email has been sent.");
+    } catch (e) {
+      print("An error occurred while sending the verification email: $e");
     }
   }
 

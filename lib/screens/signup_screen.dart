@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallet_wise/screens/login_screen.dart';
 
 import '../constants/constants.dart';
+import '../services/AuthServices.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_field.dart';
 
@@ -22,8 +24,25 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  _signup() {
-    if (_formKey.currentState!.validate()) {}
+  _signup() async {
+    if (_formKey.currentState!.validate()) {
+      AuthService _authService = AuthService();
+
+      dynamic result = await _authService.signUp(
+          _emailController.text, _passwordController.text);
+      if (result is User) {
+        print("Signup successful. Verification email has been sent.");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Please check your email to verify your account."),
+          ),
+        );
+        // Optionally, navigate the user to a different screen here
+      } else {
+        print("Signup failed");
+        // Show error message
+      }
+    }
   }
 
   @override
