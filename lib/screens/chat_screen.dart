@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 class ChatScreen extends StatefulWidget {
   static const String id = 'ChatScreen';
 
-  final int userId;
+  final String userId;
   final String name;
   final String image;
   final bool isOnline;

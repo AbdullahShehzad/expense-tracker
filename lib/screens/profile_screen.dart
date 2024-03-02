@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wallet_wise/screens/profile_settings.dart';
+
+import 'chat_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -8,6 +12,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -76,108 +82,156 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 80,
                     ),
-                    Text(
+                    const Text(
                       "Muhammad Saad",
                       style: TextStyle(
                           fontSize: 20,
                           color: Color(0xFF222222),
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    IconButton(
+                      style: IconButton.styleFrom(
+                        backgroundColor: Color(0xFF392800),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                      ),
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.edit_outlined,
+                        color: Color(0xFFE9AB17),
+                      ),
+                    ),
+                    const SizedBox(
                       height: 70,
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          style: IconButton.styleFrom(
-                            backgroundColor: Color(0xFFE9AB17),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                    OutlinedButton(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide.none,
+                      ),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            style: IconButton.styleFrom(
+                              backgroundColor: Color(0xFFE9AB17),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.group_add_rounded,
+                              color: Color(0xFF392800),
                             ),
                           ),
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.group_add_rounded,
-                            color: Color(0xFF392800),
+                          const SizedBox(
+                            width: 40,
                           ),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Text(
-                          "Invite Friends",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Color(0xFF000000),
-                          ),
-                        )
-                      ],
+                          const Text(
+                            "Invite Friends",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFF000000),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     Divider(
                       color: Color(0xFF6A5931).withOpacity(.35),
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          style: IconButton.styleFrom(
-                            backgroundColor: Color(0xFFE9AB17),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileSettings(),
+                          ),
+                        );
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide.none,
+                      ),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            style: IconButton.styleFrom(
+                              backgroundColor: Color(0xFFE9AB17),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.settings,
+                              color: Color(0xFF392800),
                             ),
                           ),
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.settings,
-                            color: Color(0xFF392800),
+                          const SizedBox(
+                            width: 40,
                           ),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Text(
-                          "Settings",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Color(0xFF000000),
-                          ),
-                        )
-                      ],
+                          const Text(
+                            "Settings",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFF000000),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     Divider(
                       color: Color(0xFF6A5931).withOpacity(.35),
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          style: IconButton.styleFrom(
-                            backgroundColor: Color(0xFFE9AB17),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                    OutlinedButton(
+                      onPressed: () {
+                        User? user = _auth.currentUser;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatScreen(
+                              userId: user!.uid,
                             ),
                           ),
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.help,
-                            color: Color(0xFF392800),
+                        );
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide.none,
+                      ),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            style: IconButton.styleFrom(
+                              backgroundColor: Color(0xFFE9AB17),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.help,
+                              color: Color(0xFF392800),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Text(
-                          "Customer Support",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Color(0xFF000000),
+                          const SizedBox(
+                            width: 40,
                           ),
-                        )
-                      ],
+                          const Text(
+                            "Customer Support",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFF000000),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     Divider(
-                      color: Color(0xFF6A5931).withOpacity(.35),
+                      color: const Color(0xFF6A5931).withOpacity(.35),
                     )
                   ],
                 ),
