@@ -30,7 +30,7 @@ class _WalletSetupState extends State<WalletSetup> {
                   color: Colors.white,
                   iconSize: 28, // Size of the icon
                   onPressed: () {
-                    print('Icon Button Pressed!');
+                    Navigator.pop;
                   },
                 ),
                 SizedBox(
