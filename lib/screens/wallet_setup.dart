@@ -24,7 +24,7 @@ class _WalletSetupState extends State<WalletSetup> {
       DocumentReference userDoc = firestore.collection('users').doc(uID);
 
       try {
-        await userDoc.update({'accountNumber': accNo, 'cvc': cvc});
+        // await userDoc.update({'accountNumber': accNo, 'cvc': cvc});
 
         if (mounted) {
           Navigator.popUntil(context, (route) => false);
