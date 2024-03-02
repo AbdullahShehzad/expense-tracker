@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wallet_wise/screens/pin.dart';
 
 class AccountSetup extends StatefulWidget {
   const AccountSetup({super.key});
@@ -12,8 +13,8 @@ class _AccountSetupState extends State<AccountSetup> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFFE9AB17),
+      decoration: const BoxDecoration(
+        color: Color(0xFFE9AB17),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -23,41 +24,47 @@ class _AccountSetupState extends State<AccountSetup> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 67,
                 ),
                 Text(
                   "Let's setup your account!",
                   style: GoogleFonts.inter(
                     fontSize: 36,
-                    color: Color(0xFF212325),
+                    color: const Color(0xFF212325),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 37,
                 ),
                 Text(
                   'Account can be your bank, credit card, or your wallet.',
                   style: GoogleFonts.inter(
                     fontSize: 14,
-                    color: Color(0xFF292B2D),
+                    color: const Color(0xFF292B2D),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 420,
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Add your onPressed functionality here
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const pin(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF392800), // Text color
+                    backgroundColor: const Color(0xFF392800),
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(16), // Adjust as per your need
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    minimumSize: Size(double.infinity,
-                        56), // Set width to infinity and height to 56
+                    minimumSize: const Size(
+                      double.infinity,
+                      56,
+                    ),
                   ),
                   child: const Text(
                     'Let\'s Go',
