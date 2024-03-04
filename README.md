@@ -1,10 +1,20 @@
 # Expense Tracker App
 
-Welcome to our award-winning Expense Tracker App repository! This application was born out of passion, innovation, and teamwork during an intense application development competition. With only 9 hours on the clock, our team, led by myself and including the incredibly talented Faizan Malik and Arham Anwaar, set out to build a solution that addresses the real-world problem of expense tracking. Our hard work paid off, as we were honored with the first prize for our innovative application.
+Welcome to our award-winning Expense Tracker App repository! This application was born out of passion, innovation, and teamwork during an intense application development competition. With only **9 hours** on the clock, our team, led by myself and including the incredibly talented [@faizanmalik2023](https://github.com/faizanmalik2023) and [iarhamanwaar](https://github.com/iarhamanwaar), set out to build a solution that addresses the real-world problem of expense tracking. Our hard work paid off, as we were honored with the **first prize** for our innovative application.
 
 ## About The App
 
-Built on Flutter and backed by Firebase, our Expense Tracker App is designed with user experience and functionality in mind. It offers a comprehensive set of features aimed at providing users with a seamless way to manage their finances.
+Built on **Flutter** and backed by **Firebase**, our Expense Tracker App is designed with user experience and functionality in mind. It offers a comprehensive set of features aimed at providing users with a seamless way to manage their finances.
+
+## Application Screenshots
+
+Showcase the key features and the user interface of the Expense Tracker App with these screenshots. Navigate through the app's simplicity and functionality visually.
+
+### User Authentication & Profile Management
+
+| Onboarding | Sign In | Sign Up |
+|---------|---------|--------------|
+| ![Onboarding]([path/to/signin_image.jpg](https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-03.png)) | ![Sign In](https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-05.png) | ![Sign Up](https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-06.png) |
 
 ### Key Features
 
@@ -38,12 +48,8 @@ This project is a testament to what can be achieved with teamwork, determination
 
 We believe in the power of community and welcome contributions to make our Expense Tracker App even better. Whether it's feature requests, bug reports, or code contributions, please feel free to reach out.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
-
 ## Acknowledgments
 
-A huge shoutout to everyone who supported us throughout this journey, especially to our teammates Faizan Malik and Arham Anwaar, without whom this project wouldn't have been possible.
+A huge shoutout to everyone who supported us throughout this journey, especially to my teammates, [@faizanmalik2023](https://github.com/faizanmalik2023) and [iarhamanwaar](https://github.com/iarhamanwaar), without whom this project wouldn't have been possible.
 
 Thank you for visiting our repository! We hope you find our Expense Tracker App useful.
