@@ -8,13 +8,63 @@ Built on **Flutter** and backed by **Firebase**, our Expense Tracker App is desi
 
 ## Application Screenshots
 
-Showcase the key features and the user interface of the Expense Tracker App with these screenshots. Navigate through the app's simplicity and functionality visually.
+Showcasing the key features and the user interface of the Expense Tracker App:
 
-### User Authentication & Profile Management
+<br>
+<h3 align="center">Authentication Process</h3>
+<br>
 
-| Onboarding | Sign In | Sign Up |
-|---------|---------|--------------|
-| ![Onboarding]([path/to/signin_image.jpg](https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-03.png)) | ![Sign In](https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-05.png) | ![Sign Up](https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-06.png) |
+<p align="center">
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-03.png" width="300" />
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-05.png" width="300" /> 
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-06.png" width="300" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-08.png" width="300" />
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-14.png" width="300" /> 
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-15.png" width="300" />
+</p>
+
+<br>
+<h3 align="center">Main Features</h3>
+<br>
+
+<p align="center">
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-21.png" width="300" />
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-24.png" width="300" /> 
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-17.png" width="300" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-18.png" width="300" />
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-19.png" width="300" /> 
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-22.png" width="300" />
+</p>
+
+<br>
+<h3 align="center">Financial & Management</h3>
+<br>
+
+<p align="center">
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-30.png" width="300" />
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-32.png" width="300" /> 
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-35.png" width="300" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-38.png" width="300" />
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-39.png" width="300" /> 
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-43.png" width="300" />
+</p>
+
+<br>
+<h3 align="center">Support</h3>
+<br>
+
+<p align="center">
+  <img src="https://github.com/Arhamss/wallet-wise/blob/main/assets/app_pics/App%20Development%20-%20NaSCon-44.png" width="300" />
+</p>
 
 ### Key Features
 
