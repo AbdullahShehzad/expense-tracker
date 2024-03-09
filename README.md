@@ -1,6 +1,6 @@
 # Expense Tracker App
 
-Welcome to our award-winning Expense Tracker App repository! This application was born out of passion, innovation, and teamwork during an intense application development competition. With only **9 hours** on the clock, our team, led by myself and including the incredibly talented [@faizanmalik2023](https://github.com/faizanmalik2023) and [iarhamanwaar](https://github.com/iarhamanwaar), set out to build a solution that addresses the real-world problem of expense tracking. Our hard work paid off, as we were honored with the **first prize** for our innovative application.
+Welcome to our award-winning Expense Tracker App repository! This application was born out of passion, innovation, and teamwork during an intense application development competition. With only **9 hours** on the clock, our team set out to build a solution that addresses the real-world problem of expense tracking. Our hard work paid off, as we were honored with the **runner up** for our innovative application.
 
 ## About The App
 
@@ -108,9 +108,3 @@ This project is a testament to what can be achieved with teamwork, determination
 ## Contributing
 
 We believe in the power of community and welcome contributions to make our Expense Tracker App even better. Whether it's feature requests, bug reports, or code contributions, please feel free to reach out.
-
-## Acknowledgments
-
-A huge shoutout to everyone who supported us throughout this journey, especially to my teammates, [@faizanmalik2023](https://github.com/faizanmalik2023) and [iarhamanwaar](https://github.com/iarhamanwaar), without whom this project wouldn't have been possible.
-
-Thank you for visiting our repository! We hope you find our Expense Tracker App useful.
